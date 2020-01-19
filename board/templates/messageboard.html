@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block c %}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Board Name</th>
+        <th scope="col">Topics</th>
+        <th scope="col">Posts</th>
+        <th scope="col">Last Post</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for b in boards %}
+    <tr>
+        <td><a href="{% url 'topics' b.pk %}">{{ b.name }}</a><br><small style="color: #888">{{ b.description }}</small>
+        </td>
+        <td>{{ b.topics.count }}</td>
+        <td>{{ b.get_posts_count }}</td>
+        <td>
+            {% if b.get_posts_count > 0%}
+            {% with p=b.get_last_post %}
+            <small>
+                <a href="{% url 'topic_detail' b.pk p.topic.pk %}">
+                    By {{ p.created_by.username }} at {{ p.created_date }}
+                </a>
+            </small>
+            {% endwith %}
+            {% else %}
+            <small class="text-muted">No posts yet.</small>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

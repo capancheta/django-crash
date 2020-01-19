@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block bc %}
+    <li class="breadcrumb-item"><a href="{% url 'main_board' %}">Boards</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'topics' board.pk %}">{{ board.name }}</a></li>
+    <li class="breadcrumb-item active">New Topic</li>
+{% endblock %}
+
+{% block c%}
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'form.html' %}
+
+    <!-- using models.ModelForm mode v2-->
+    <!--    {{ form.as_p }}-->
+
+    <!-- raw form mode v1-->
+    <!--    <div class="form-group">-->
+    <!--        <label for="i_subject">Subject</label>-->
+    <!--        <input type = "text" class="form-control" id="i_subject" placeholder="Enter title here" name = "p_subject">-->
+    <!--    </div>-->
+    <!--    <div class="form-group">-->
+    <!--        <label for="i_message">Message</label>-->
+    <!--        <textarea class="form-control" id="i_message" rows="5" name="p_message"></textarea>-->
+    <!--    </div>-->
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

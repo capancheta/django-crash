@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bc %}
+  <li class="breadcrumb-item active">User Profile</li>
+  <li class="breadcrumb-item active">{{ user.username }}</li>
+{% endblock %}
+
+{% block c %}
+<div class="col-2">
+  {% if not user.profile.avatar %}
+  <img src="{% static 'img/default.png' %}" class="w-100">
+  {% else %}
+  <img src="{{ user.profile.avatar }}" class="w-100">
+  {% endif %}
+</div>
+
+  <div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'form.html' %}
+        <button type="submit" class="btn btn-success">Update</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

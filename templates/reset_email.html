@@ -1,0 +1,6 @@
+Hello {{ user.username }},
+
+your e-mail: {{ email }}
+reset your password:
+{{ protocol }}://{{ domain }}{% url 'reset_confirm' uidb64=uid token=token %}
+

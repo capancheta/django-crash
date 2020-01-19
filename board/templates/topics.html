@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block bc %}
+<li class="breadcrumb-item"><a href="{% url 'main_board' %}">Boards</a></li>
+<li class="breadcrumb-item active">{{ board.name }}</li>
+{% endblock %}
+
+{% block c%}
+
+
+<table class="table">
+    <th>
+        {% if user.is_authenticated %}
+        <div class="mb-4">
+            <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">Start New Topic</a>
+        </div>
+        {% endif %}
+    </th>
+    <th>
+        {% include 'page_generator.html' %}
+    </th>
+</table>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Topic</th>
+        <th scope="col">Started by</th>
+        <th scope="col">Replies</th>
+        <th scope="col">Views</th>
+        <th scope="col">Last Post</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for t in topics %}
+    <tr>
+        <td><a href="{% url 'topic_detail' board.pk t.pk %}">{{ t.subject }}</a></td>
+        <td>{{ t.started_by }}</td>
+        <td>{{ t.replies }}</td>
+        <td>{{ t.views }}</td>
+        <td>{{ t.last_updated }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
